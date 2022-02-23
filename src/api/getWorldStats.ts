@@ -20,14 +20,7 @@ const getWorldStats = async ({ dateFrom, dateTo }: GetWorldStatsProps) => {
 
   return axios(config)
     .then(function (response) {
-      // response.data.sort(function compare(a, b) {
-      //   const dateA: any = new Date(a.Date);
-      //   const dateB: any = new Date(b.Date);
-      //   return dateA - dateB;
-      // });
-      console.log(response.data);
-
-      // setData(JSON.stringify(response.data));
+      // console.log(response.data);
       return response.data;
     })
     .catch((error) => apiErrorHandler(error));

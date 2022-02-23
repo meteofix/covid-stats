@@ -29,11 +29,11 @@ export const getYesterday = () => {
 export const getSummaryStats = ({ data, filteredCase }: GetSummaryProps): {}[] => {
   let summaryMap = new Map();
   let summaryArray = [];
-  // @ts-ignore
-  data.forEach((item) => {
-    if (!summaryMap.has(item.Date)) summaryMap.set(item.Date, 0);
-    summaryMap.set(item.Date, summaryMap.get(item.Date) + item[filteredCase]);
-  });
+  Array.isArray(data) &&
+    data.forEach((item) => {
+      if (!summaryMap.has(item.Date)) summaryMap.set(item.Date, 0);
+      summaryMap.set(item.Date, summaryMap.get(item.Date) + item[filteredCase]);
+    });
 
   for (let key of summaryMap.keys()) {
     summaryArray.push({ Date: key, [filteredCase]: summaryMap.get(key) });
