@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { paths, titles } from '../services/consts';
 
-const UseTitle = () => {
+const UseTitle = (): string => {
   let location = useLocation();
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     switch (location.pathname) {

@@ -41,6 +41,8 @@ const StyledButton = styled('button')(
   padding: 16px;
   text-align: left;
   line-height: 1.5;
+      cursor: pointer;
+
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
 
   &:hover {
@@ -92,7 +94,7 @@ export const StyledOption = styled(OptionUnstyled)(
   list-style: none;
   padding: 8px;
   border-radius: 0.45em;
-  cursor: default;
+  cursor: pointer;
 
   &:last-of-type {
     border-bottom: none;

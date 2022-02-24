@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { styled } from '@mui/material';
 
 export const SidebarLink = styled(NavLink)`
   width: 100%;

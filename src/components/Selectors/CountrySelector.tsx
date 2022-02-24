@@ -1,9 +1,9 @@
 import { FormControl } from '@mui/material';
 import { CustomSelect, StyledOption } from './CountrySelector.styled';
-import { Countries } from '../pages/CountryStats';
+import { ICountries } from '../../services/CountriesContext';
 
 type CountrySelectorProps = {
-  data: Countries;
+  data: ICountries;
   selectedCountry: string;
   setCountry: (value: string) => void;
 };
@@ -13,8 +13,8 @@ const CountrySelector = ({ data, selectedCountry, setCountry }: CountrySelectorP
     <FormControl>
       <CustomSelect
         value={selectedCountry}
-        onChange={(value) => {
-          // @ts-ignore
+        // @ts-ignore
+        onChange={(value: string) => {
           setCountry(value);
         }}
       >

@@ -1,13 +1,15 @@
 import React from 'react';
-import { Divider, Drawer, List, ListItem, Toolbar } from '@mui/material';
+import { Divider, Drawer, List, Toolbar } from '@mui/material';
 import { paths, SIDEBAR_WIDTH, titles } from '../services/consts';
-import useTitle from '../hooks/useTitle';
-import { SidebarLink } from './Sidebar.styled';
+import SidebarNavListMapper from '../services/SidebarNavListMapper';
+
+export interface INavList {
+  title: string;
+  path: string;
+}
 
 const Sidebar = () => {
-  const title = useTitle();
-
-  const navList = [
+  const navList: INavList[] = [
     {
       title: titles.WORLD_PAGE_TITLE,
       path: paths.WORLD_PAGE_PATH,
@@ -37,12 +39,7 @@ const Sidebar = () => {
       <Toolbar />
       <Divider />
       <List>
-        {navList.map((navItem) => (
-          <ListItem button key={navItem.title} selected={navItem.title === title}>
-            <SidebarLink to={navItem.path}>{navItem.title}</SidebarLink>
-            {/*<ListItemText primary={text} />*/}
-          </ListItem>
-        ))}
+        <SidebarNavListMapper navList={navList} />
       </List>
       <Divider />
     </Drawer>

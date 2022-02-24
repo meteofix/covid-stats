@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import AppToolBar from './AppToolBar';
 import Sidebar from './Sidebar';
-import { Box, Toolbar } from '@mui/material';
+import { Box, Divider, Toolbar } from '@mui/material';
 
 type WrapperProps = {
   children: ReactNode;
@@ -12,9 +12,10 @@ const Wrapper = ({ children }: WrapperProps) => {
     <Box sx={{ display: 'flex' }}>
       <AppToolBar />
       <Sidebar />
-      <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default' }}>
         <Toolbar />
-        {children}
+        <Box sx={{ p: 5 }}>{children}</Box>
+        <Divider />
       </Box>
     </Box>
   );

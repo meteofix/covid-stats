@@ -3,22 +3,16 @@ import Wrapper from '../components/Wrapper';
 import getByCountryStats from '../api/getByCountryStats';
 import { cases } from '../services/consts';
 import DateAdapter from '@mui/lab/AdapterDateFns';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Chart from '../components/Chart';
-import DateSelector from '../components/DateSelector';
-import CaseSelector from '../components/CaseSelector';
-import CountrySelector from '../components/CountrySelector';
-import { CountriesContext } from '../App';
-import { getSummaryStats } from '../services/utils';
+import DateSelector from '../components/Selectors/DateSelector';
+import CaseSelector from '../components/Selectors/CaseSelector';
+import CountrySelector from '../components/Selectors/CountrySelector';
+import { getSummaryStats, setFirstCharToUpperCase } from '../services/utils';
+import { CountriesContext } from '../services/CountriesContext';
 
-export interface Countries {
-  Country: string;
-  Slug: string;
-  ISO2: string;
-}
-
-export interface DateByCountry {
+export interface IDataByCountry {
   ID: string;
   Country: string;
   CountryCode: string;
@@ -33,7 +27,7 @@ export interface DateByCountry {
   Active: number;
   Date: Date;
 }
-const initialDateByCountry = {
+const initialDataByCountry = {
   ID: '',
   Country: '',
   CountryCode: '',
@@ -57,37 +51,37 @@ const CountryStats = () => {
   const [filteredCase, setFilteredCase] = useState<string>(
     sessionStorage.countryCase || cases.CONFIRMED
   );
-  const [data, setData] = useState<DateByCountry>(initialDateByCountry);
+  const [data, setData] = useState<IDataByCountry>(initialDataByCountry);
   const { countries } = useContext(CountriesContext);
 
-  const caseItems = [cases.CONFIRMED, cases.DEATHS, cases.RECOVERED, cases.ACTIVE];
+  const caseItems: string[] = [cases.CONFIRMED, cases.DEATHS, cases.RECOVERED, cases.ACTIVE];
   let summaryArray = getSummaryStats({ data, filteredCase });
 
   useEffect(() => {
-    getByCountryStats({ dateFrom, country, filteredCase }).then((response) => setData(response));
+    getByCountryStats({ dateFrom, country, filteredCase }).then((response) => {
+      setData(response);
+    });
   }, [dateFrom, country]);
 
-  const setCountryHandler = (value: string) => {
+  const setCountryHandler = (value: string): void => {
     setCountry(value);
     sessionStorage.setItem('country', value);
   };
 
-  const setDateFromHandler = (value: Date) => {
+  const setDateFromHandler = (value: Date): void => {
     setDateFrom(value);
-    // @ts-ignore
     sessionStorage.setItem('countryDateFrom', value.toDateString());
   };
-  const setCaseHandler = (value: string) => {
+  const setCaseHandler = (value: string): void => {
     setFilteredCase(value);
     sessionStorage.setItem('countryCase', value);
   };
 
   return (
     <Wrapper>
-      <LocalizationProvider dateAdapter={DateAdapter} style={{ margin: '10px' }}>
-        <Stack direction="row" marginLeft="15px" spacing={3}>
+      <LocalizationProvider dateAdapter={DateAdapter}>
+        <Stack direction="row" marginBottom="40px" spacing={3}>
           <CountrySelector
-            // @ts-ignore
             data={countries}
             selectedCountry={country}
             setCountry={setCountryHandler}
@@ -96,7 +90,10 @@ const CountryStats = () => {
           <CaseSelector value={filteredCase} setValue={setCaseHandler} items={caseItems} />
         </Stack>
       </LocalizationProvider>
-      <h3>Summary stats for {country}</h3>
+
+      <Typography variant="h4">
+        {filteredCase} cases in {setFirstCharToUpperCase(country)}
+      </Typography>
       <Chart data={summaryArray} filteredCase={filteredCase} />
     </Wrapper>
   );

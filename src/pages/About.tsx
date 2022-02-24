@@ -1,7 +1,7 @@
 import Wrapper from '../components/Wrapper';
 
 const About = () => {
-  return <Wrapper>a</Wrapper>;
+  return <Wrapper>About page</Wrapper>;
 };
 
 export default About;

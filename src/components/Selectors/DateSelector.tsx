@@ -11,6 +11,7 @@ type DateSelectorProps = {
 const DateSelector = ({ label = 'Date', value, setValue }: DateSelectorProps) => {
   return (
     <DesktopDatePicker
+      disableFuture
       label={label}
       mask="__.__.____"
       inputFormat="dd.MM.yyyy"

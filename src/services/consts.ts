@@ -5,6 +5,7 @@ export const paths = {
   COUNTRY_PAGE_PATH: '/country',
   ABOUT_PAGE_PATH: '/about',
 };
+
 export const titles = {
   WORLD_PAGE_TITLE: 'World WIP',
   COUNTRY_PAGE_TITLE: 'By Country',

@@ -1,34 +1,15 @@
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import './App.css';
+import React, { useEffect, useMemo, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './services/AppRouter';
-import { AppContainer } from './App.styled';
 import { CssBaseline } from '@mui/material';
 import getCountries from './api/getCountries';
-import { sortByName } from './services/utils';
-
-interface ICountriesContext {
-  countries: any[];
-  setCountries: Dispatch<SetStateAction<any>>;
-}
-export const CountriesContext = createContext<ICountriesContext>({
-  countries: [],
-  setCountries: () => {},
-});
+import { CountriesContext, ICountries, initialCountries } from './services/CountriesContext';
 
 function App() {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState<ICountries>(initialCountries);
 
   useEffect(() => {
     getCountries().then((response) => {
-      response.sort(sortByName);
       setCountries(response);
     });
   }, []);
@@ -42,10 +23,7 @@ function App() {
     <CountriesContext.Provider value={CountriesContextValue}>
       <BrowserRouter>
         <CssBaseline />
-
-        <AppContainer>
-          <AppRouter />
-        </AppContainer>
+        <AppRouter />
       </BrowserRouter>
     </CountriesContext.Provider>
   );
