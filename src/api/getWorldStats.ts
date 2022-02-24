@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import apiErrorHandler from './apiErrorHandler';
+import apiRequest from './apiRequest';
+import { sliceDateInResponseData, sortByDate } from '../services/utils';
 
 type GetWorldStatsProps = {
   dateFrom: Date | null;
@@ -7,23 +7,17 @@ type GetWorldStatsProps = {
 };
 
 const getWorldStats = async ({ dateFrom, dateTo }: GetWorldStatsProps) => {
-  const config: AxiosRequestConfig = {
-    method: 'get',
-    url: `https://api.covid19api.com/world`,
-    params: {
-      from: dateFrom,
-      to: dateTo,
-    },
-    headers: {},
+  const url = `https://api.covid19api.com/world`;
+  const params = {
+    from: dateFrom,
+    to: dateTo,
   };
-  // const request = axios(config);
 
-  return axios(config)
-    .then(function (response) {
-      // console.log(response.data);
-      return response.data;
-    })
-    .catch((error) => apiErrorHandler(error));
+  return apiRequest({ url, params }).then((response) => {
+    response.sort(sortByDate);
+    response = sliceDateInResponseData(response);
+    return response;
+  });
 };
 
 export default getWorldStats;

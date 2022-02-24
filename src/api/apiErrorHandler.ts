@@ -1,4 +1,4 @@
-const ApiErrorHandler = (error: any) => {
+const ApiErrorHandler = (error: any): void => {
   if (error.response) {
     console.log('Client received an error response (5xx, 4xx)');
   } else if (error.request) {

@@ -1,20 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import apiErrorHandler from './apiErrorHandler';
+import apiRequest from './apiRequest';
+import { sortByName } from '../services/utils';
 
 const getCountries = async () => {
-  const config: AxiosRequestConfig = {
-    method: 'get',
-    url: `https://api.covid19api.com/countries`,
-    headers: {},
-  };
-  const request = axios(config);
+  const url = `https://api.covid19api.com/countries`;
 
-  return request
-    .then(function (response) {
-      // console.log(JSON.stringify(response.data));
-      return response.data;
-    })
-    .catch((error) => apiErrorHandler(error));
+  return apiRequest({ url }).then((response) => {
+    response.sort(sortByName);
+    return response;
+  });
 };
 
 export default getCountries;

@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import apiErrorHandler from './apiErrorHandler';
+import apiRequest from './apiRequest';
+import { sliceDateInResponseData } from '../services/utils';
 
 type GetByCountryStatsProps = {
   dateFrom: Date;
@@ -8,20 +8,12 @@ type GetByCountryStatsProps = {
 };
 
 const getByCountryStats = async ({ dateFrom, filteredCase, country }: GetByCountryStatsProps) => {
-  const config: AxiosRequestConfig = {
-    method: 'get',
-    url: `https://api.covid19api.com/live/country/${country}/status/${filteredCase}/date/${dateFrom.toISOString()}`,
+  const url = `https://api.covid19api.com/live/country/${country}/status/${filteredCase}/date/${dateFrom.toISOString()}`;
 
-    headers: {},
-  };
-  const request = axios(config);
-
-  return request
-    .then(function (response) {
-      // console.log(JSON.stringify(response.data));
-      return response.data;
-    })
-    .catch((error) => apiErrorHandler(error));
+  return apiRequest({ url }).then((response) => {
+    response = sliceDateInResponseData(response);
+    return response;
+  });
 };
 
 export default getByCountryStats;
