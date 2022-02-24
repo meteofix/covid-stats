@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+## Ознайомитись з додатком онлайн можна за посиланням: [Covid-boosters](https://covid-boosters.netlify.app/) .
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Для локального запуску клонуйте репозиторій, виконавши наступну команду:
 
-## Available Scripts
+### `git clone https://github.com/meteofix/covid-stats.git`
 
-In the project directory, you can run:
+Інсталюйте залежності, виконавши у папці з клонованим проектом команду:
+
+### `npm install`
+
+Запустіть додаток:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Для запуску лінтінгу виконайте команду:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm run lint`
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Коротка довідка про додаток:
 
-### `npm run build`
+Додаток відображає статистику захворювань COVID 19, використовуючи [публічне api](https://covid19api.com/).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Cкладається з трьох сторінок :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `World WIP` - на сторінці відображена глобальна статистика захворювань у світі, у вигляді гістограми. Фільтри: date_from, date_to, case.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `By Country` - на сторінці відображена глобальна статистика захворювань для окремих країн, у вигляді гістограми. Фільтри: country, date_from, cases. Дані для регіонів сумуються та відображаються вцілому для країни.
 
-### `npm run eject`
+- `About` - на сторінці відображена загальні інформація про додаток.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Зліва розташований сайдбар з меню для перемиканнями між сторінками.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Список країн завантажується одноразово і кешується.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> При перемиканні між сторінками обрані фільтри зберігаються.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Для роутингу між сторінками використовується бібліотека `react-router`.
 
-## Learn More
+Графіки побудовані за допомогою бібліотеки `recharts`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Оформлення здійснене за допомогою бібліотек `@mui/material` з використанням `@mui/styled-engine-sc`.
